@@ -1,0 +1,107 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>My Page</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="themes/myTheme.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head> 
+<body> 
+<p></p>
+<div data-role="page" id="demo-page" data-theme="c">
+
+	<div data-role="header" class = "ui-bar ui-bar-c ui-corner-all" >
+		<h1>My Car Collection</h1>
+		<a href="description.html" data-icon="gear" class="ui-btn-right">Options</a>
+
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+	
+		<div class="ui-body ui-body-c ui-corner-all">
+		
+			<div data-role="fieldcontain" ><label> Car Make </label><input type="text" class="myCar" value=""> </div>
+			<div data-role="fieldcontain"> <label> Car Price </label> <input type="text" class="myPrice" value=""> </div>
+			<div><button href="#" class="addBtn" data-icon="plus">Add</button></div>	   
+
+		
+		</div>
+		
+		
+		<p/>
+		<div class="ui-body ui-body-c ui-corner-all">
+		<ul data-role="listview" data-inset="true" data-filter="true" class="cars" data-autodividers="true">
+			<li><a href="#">Acura</a>  <h4 class="ui-li-aside">$50,000</h4></li>
+			<li><a href="#">Audi</a><h4 class="ui-li-aside">$55,000</h4></li>
+			<li><a href="#">BMW</a><h4 class="ui-li-aside">$65,000</h4></li>
+			<li><a href="#">Cadillac</a><h4 class="ui-li-aside">$45,000</h4></li>
+			<li><a href="#">Ferrari</a><h4 class="ui-li-aside">$225,000</h4></li>
+		</ul>
+		</div>
+		
+		
+		
+		<p/>
+		<div class="ui-body ui-body-c ui-corner-all">
+		<form>
+		   <label for="slider-0">Select Max Price:</label>
+		   <input type="range" class="mySlider" name="slider" id="slider-0" value="10000" min="5000" max="300000" step="500"  />
+		</form>
+		
+		<div> <p class="output"> Nothing Happend</p></div>
+		</div>
+	</div>
+	<div data-role="footer" class = "ui-bar ui-bar-c ui-corner-all" >
+			<button href="#" class="myBtn" data-icon="check" data-theme="c">Can I afford It?</button>
+			<button href="#" class="myBtn2" data-icon="star" data-theme="c">Savings Plan</button>
+			<button href="#" class="myBtn2" data-icon="shop" data-theme="c">Place Order</button>
+			<button href="#" class="myBtn2" data-icon="delete" data-theme="c">Cancel My Order</button>
+		</div>
+	</div>
+	<script>
+	var selectedPrice=0.0;
+	
+	$( "input" )
+  .keyup(function() {
+    var value = $( this ).val();
+    $( ".p" ).text( value );
+  	})
+  .keyup();
+  
+   $(".addBtn").on("click", function() {
+  		var car = $(".myCar").val();
+  		var price = $(".myPrice").val();
+  		$(".cars").append('<li><a href="#">'+car+'</a><h4 class="ui-li-aside">'+price+'</h4></li>');
+  		$(".cars").listview('refresh');
+  	
+  });
+  
+  $(".myBtn").on("click", function() {
+  		var val = $(".mySlider").val();
+  		var selected = $(".cars");
+  		
+  		var carInfo= "The price of the car is " + selectedPrice + ", Your max price is " + val + "....";
+  		if (val < selectedPrice )
+  			$(".output").text(carInfo+ "You Can Afford It when Pigs Fly!!!! " );
+  		else
+  			$(".output").text(carInfo+"Maybe if you work really hard and save.. " );
+  	
+  });
+  
+  $('.cars').on('click', ' > li', function () {
+    var selected_index = $(this).index();
+    var label = $(this).find('h4').text();
+    var car = $(this).find('a').text();
+    selectedPrice = Number(label.replace(/[^0-9\.]+/g,""));
+    $(".output").text("You've Selected a/an " + car + " at " + label );
+});
+	</script>
+
+</div><!-- /page -->
+
+
+</body>
+</html>
